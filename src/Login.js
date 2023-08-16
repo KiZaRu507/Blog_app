@@ -1,6 +1,7 @@
 // src/components/Login.js
 
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Login() {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -10,14 +11,51 @@ function Login() {
         setCredentials(prevState => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Logic to handle login/signup
+    
+
+// In your login component or function:
+const handleLogin = async (username, password) => {
+  try {
+    const response = await axios.post('http://localhost:5000/login', {
+      username,
+      password,
+    });
+    
+    if (response.data.success) {
+      // Successfully logged in.
+      // Navigate to home page or set user state.
+    } else {
+      // Handle login error. Maybe set an error message in state.
     }
+  } catch (error) {
+    console.error("Error logging in:", error);
+    // Handle general error. Maybe set an error message in state.
+  }
+};
+const handleSignup = async (username, password) => {
+    try {
+      const response = await axios.post('http://localhost:5000/signup', {
+        username,
+        password,
+      });
+      
+      if (response.data.success) {
+        // Successfully signed up.
+        // Maybe navigate to login page or home page.
+      } else {
+        // Handle signup error. Maybe set an error message in state.
+      }
+    } catch (error) {
+      console.error("Error signing up:", error);
+      // Handle general error. Maybe set an error message in state.
+    }
+  };
+  
+
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
                 <input 
                     type="text" 
                     name="username" 
@@ -33,6 +71,7 @@ function Login() {
                     onChange={handleChange}
                 />
                 <button type="submit">Login</button>
+                
             </form>
         </div>
     );

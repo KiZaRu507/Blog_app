@@ -1,38 +1,30 @@
-// src/components/WriteBlog.js
-
+// src/WriteBlog.js
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function WriteBlog() {
-    const [blog, setBlog] = useState({ title: '', content: '' });
+    const [blogContent, setBlogContent] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setBlog(prevState => ({ ...prevState, [name]: value }));
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Logic to submit the blog
-    }
+    const createBlog = async (blogContent) => {
+        try {
+          const response = await axios.post('http://localhost:5000/blog', blogContent);
+          if (response.data.success) {
+            // Blog created successfully.
+            // Maybe navigate to home page or refresh blogs list.
+          } else {
+            // Handle blog creation error.
+          }
+        } catch (error) {
+          console.error("Error creating blog:", error);
+          // Handle error. Maybe set an error message in state.
+        }
+      };
+      
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    name="title" 
-                    placeholder="Blog Title" 
-                    value={blog.title} 
-                    onChange={handleChange}
-                />
-                <textarea 
-                    name="content" 
-                    placeholder="Write your blog here..." 
-                    value={blog.content} 
-                    onChange={handleChange}
-                />
-                <button type="submit">Publish</button>
-            </form>
+            <textarea value={blogContent} onChange={(e) => setBlogContent(e.target.value)} placeholder="Write your blog here..."></textarea>
+            <button onClick={createBlog}>Publish</button>
         </div>
     );
 }

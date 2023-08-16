@@ -1,27 +1,30 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Login from './Login';
-import Home from './Home';
+import Signup from './Signup';
+import HomePage from './HomePage';
 import WriteBlog from './WriteBlog';
 
 function App() {
-    const dummyBlogs = [
-        { title: "Sample Blog 1", content: "This is the content of sample blog 1" },
-        { title: "Sample Blog 2", content: "This is the content of sample blog 2" }
-    ];
-
     return (
         <Router>
             <div>
+                {/* Basic Navigation Links */}
                 <nav>
                     <Link to="/">Home</Link>
                     <Link to="/login">Login</Link>
+                    <Link to="/signup">Signup</Link>
                     <Link to="/write">Write Blog</Link>
                 </nav>
+
+                {/* Routes Definition */}
                 <Routes>
-                    <Route path="/" element={<Home blogs={dummyBlogs} />} />
+                    <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="/write" element={<WriteBlog />} />
+                    {/* Add other routes as needed */}
                 </Routes>
             </div>
         </Router>
