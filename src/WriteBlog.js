@@ -1,13 +1,12 @@
-// src/WriteBlog.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
 function WriteBlog() {
     const [blogContent, setBlogContent] = useState('');
 
-    const createBlog = async (blogContent) => {
+    const createBlog = async () => {
         try {
-          const response = await axios.post('http://localhost:5000/blog', blogContent);
+          const response = await axios.post('http://localhost:5000/blog', { content: blogContent });
           if (response.data.success) {
             // Blog created successfully.
             // Maybe navigate to home page or refresh blogs list.
@@ -19,7 +18,6 @@ function WriteBlog() {
           // Handle error. Maybe set an error message in state.
         }
       };
-      
 
     return (
         <div>

@@ -32,25 +32,7 @@ const handleLogin = async (username, password) => {
     // Handle general error. Maybe set an error message in state.
   }
 };
-const handleSignup = async (username, password) => {
-    try {
-      const response = await axios.post('http://localhost:5000/signup', {
-        username,
-        password,
-      });
-      
-      if (response.data.success) {
-        // Successfully signed up.
-        // Maybe navigate to login page or home page.
-      } else {
-        // Handle signup error. Maybe set an error message in state.
-      }
-    } catch (error) {
-      console.error("Error signing up:", error);
-      // Handle general error. Maybe set an error message in state.
-    }
-  };
-  
+
 
 
     return (
